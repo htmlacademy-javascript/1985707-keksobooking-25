@@ -3,17 +3,17 @@ function getRandomInt(min, max) {
     return 'Диапазон введен некорректно!';
   }
 
-  return Math.floor(Math.random() * (max - min + 1)) + min; //Максимум и минимум включаются
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
-// console.log(getRandomInt(0,3));
+getRandomInt(0,3);
 
 function getRandomFloat(min, max, n) {
   if(min>=max || min<0 || max<0){
     return 'Диапазон введен некорректно!';
   }
 
-  return (Math.random() * (max - min) + min).toFixed(n); //Максимум и минимум включаются
+  return (Math.random() * (max - min) + min).toFixed(n);
 }
 
-console.log(getRandomFloat(0,3,1));
+getRandomFloat(0,3,1);
