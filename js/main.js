@@ -1,19 +1,96 @@
-function getRandomInt(min, max) {
-  if(min>=max || min<0 || max<0){
-    return 'Диапазон введен некорректно!';
-  }
+const getRandomPositiveInteger = (a, b) => {
+  const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
+  const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
+  const result = Math.random() * (upper - lower + 1) + lower;
+  return Math.floor(result);
+};
 
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-}
+const getRandomPositiveFloat = (a, b, digits) => {
+  const lower = Math.min(Math.abs(a), Math.abs(b));
+  const upper = Math.max(Math.abs(a), Math.abs(b));
+  const result = Math.random() * (upper - lower) + lower;
+  return +result.toFixed(digits);
+};
 
-getRandomInt(0,3);
+const getRandomArrayElement = (elements) => elements[getRandomPositiveInteger(0, elements.length - 1)];
 
-function getRandomFloat(min, max, n) {
-  if(min>=max || min<0 || max<0){
-    return 'Диапазон введен некорректно!';
-  }
+const SIMILAR_AD_COUNT = 10;
 
-  return (Math.random() * (max - min) + min).toFixed(n);
-}
+const AVATAR_NUMBERS = [
+  '01',
+  '02',
+  '03',
+  '04',
+  '05',
+  '06',
+  '07',
+  '08',
+  '09',
+  '10',
+];
 
-getRandomFloat(0,3,1);
+const TYPE_OF_HOUSING = [
+  'palace',
+  'flat',
+  'house',
+  'bungalow',
+  'hotel',
+];
+
+const CHECKIN_AND_CHECKOUT = [
+  '12:00',
+  '13:00',
+  '14:00',
+];
+
+const FEATURES = [
+  'wifi',
+  'dishwasher',
+  'parking',
+  'washer',
+  'elevator',
+  'conditioner',
+];
+
+const PHOTO = [
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/duonguyen-8LrGtIxxa4w.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/brandon-hoogenboom-SNxQGWxZQi0.jpg',
+  'https://assets.htmlacademy.ru/content/intensive/javascript-1/keksobooking/claire-rendall-b6kAwr1i0Iw.jpg',
+];
+
+// Нашел на просторах Хабра
+const createArrayFeatures = ([...source], maxLength) => Array.from(
+  { length: Math.min(source.length, 1 + Math.random() * maxLength | 0) },
+  () => source.splice(Math.random() * source.length | 0, 1)[0]
+);
+
+const createSimilarAd = () => {
+  const randomLat = getRandomPositiveFloat(35.65,35.7,5);
+  const randomLng = getRandomPositiveFloat(139.7,139.8,5);
+
+  return {
+    author: {
+      avatar: `img/avatars/user${  getRandomArrayElement(AVATAR_NUMBERS)  }.png`,
+    },
+    location: {
+      lat: randomLat,
+      lng: randomLng,
+    },
+    offer: {
+      title: 'Похожее объявление неподалеку.',
+      adress: `${randomLat  },${  randomLng}`,
+      price: getRandomPositiveInteger(1,100000),
+      type: getRandomArrayElement(TYPE_OF_HOUSING),
+      rooms: getRandomPositiveInteger(1,3),
+      guests: getRandomPositiveInteger(1,3),
+      checkin: getRandomArrayElement(CHECKIN_AND_CHECKOUT),
+      checkout: getRandomArrayElement(CHECKIN_AND_CHECKOUT),
+      feauters: createArrayFeatures(FEATURES,FEATURES.length-1),
+      description: 'Описание помещения',
+      photo: createArrayFeatures(PHOTO,PHOTO.length-1),
+    },
+  };
+};
+
+const similarAd = Array.from({length: SIMILAR_AD_COUNT}, createSimilarAd);
+console.log(similarAd);
