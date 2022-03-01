@@ -1,3 +1,4 @@
+/* eslint-disable semi */
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -64,21 +65,17 @@ const createArrayFeatures = ([...source], maxLength) => Array.from(
   () => source.splice(Math.random() * source.length | 0, 1)[0]
 );
 
-const createSimilarAd = () => {
-  const randomLat = getRandomPositiveFloat(35.65,35.7,5);
-  const randomLng = getRandomPositiveFloat(139.7,139.8,5);
-
-  return {
+const similarAd = [];
+for (let i=0; i<SIMILAR_AD_COUNT; i++) {
+  const locationLat = getRandomPositiveFloat(35.65,35.7,5);
+  const locationLng = getRandomPositiveFloat(139.7,139.8,5);
+  const arrayItem = {
     author: {
-      avatar: `img/avatars/user${  getRandomArrayElement(AVATAR_NUMBERS)  }.png`,
-    },
-    location: {
-      lat: randomLat,
-      lng: randomLng,
+      avatar: `img/avatars/user${  AVATAR_NUMBERS[i]  }.png`,
     },
     offer: {
       title: 'Похожее объявление неподалеку.',
-      adress: `${randomLat  },${  randomLng}`,
+      adress: `${  locationLat  },${  locationLng  }`,
       price: getRandomPositiveInteger(1,100000),
       type: getRandomArrayElement(TYPE_OF_HOUSING),
       rooms: getRandomPositiveInteger(1,3),
@@ -89,8 +86,10 @@ const createSimilarAd = () => {
       description: 'Описание помещения',
       photo: createArrayFeatures(PHOTO,PHOTO.length-1),
     },
-  };
-};
-
-const similarAd = Array.from({length: SIMILAR_AD_COUNT}, createSimilarAd);
-console.log(similarAd);
+    location: {
+      lat: locationLat,
+      lng: locationLng,
+    },
+  }
+  similarAd.push(arrayItem);
+}
