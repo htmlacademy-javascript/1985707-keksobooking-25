@@ -111,5 +111,5 @@ const getArrayAds = (counter) => {
   return targetItems;
 }
 
-console.log(getArrayAds(SIMILAR_AD_COUNT));
+getArrayAds(SIMILAR_AD_COUNT);
 
