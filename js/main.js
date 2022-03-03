@@ -60,12 +60,14 @@ const PHOTOS = [
 ];
 
 const createArrayFeatures = (array) => {
+  const sourceArray = array.slice();
   const targetArray = [];
-  targetArray.length = getRandomPositiveInteger(1,array.length-1);
-  for (let i=0; i<targetArray.length; i++) {
-    targetArray[i] = array.splice(getRandomPositiveInteger(0,array.length-1),1)[0];
+  const j = sourceArray.length;
+  for (let i=0; i<j; i++) {
+    const arrayItem = sourceArray.splice(getRandomPositiveInteger(0,sourceArray.length-1),1).shift();
+    targetArray.push(arrayItem);
   }
-  return targetArray;
+  return targetArray.slice(getRandomPositiveInteger(0,targetArray.length-1));
 }
 
 const sourceItems = AVATAR_NUMBERS;
