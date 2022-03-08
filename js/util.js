@@ -1,5 +1,3 @@
-import { sourceItems } from './data.js';
-
 const getRandomPositiveInteger = (a, b) => {
   const lower = Math.ceil(Math.min(Math.abs(a), Math.abs(b)));
   const upper = Math.floor(Math.max(Math.abs(a), Math.abs(b)));
@@ -27,9 +25,4 @@ const createArrayFeatures = (array) => {
   return targetArray.slice(getRandomPositiveInteger(0,targetArray.length-1));
 };
 
-const getAvatarNumber = () => {
-  const avatarNamber = sourceItems.splice(getRandomPositiveInteger(0,sourceItems.length-1),1);
-  return avatarNamber < 10 ? `0${avatarNamber}` : `${avatarNamber}`;
-};
-
-export {getRandomPositiveInteger,getRandomPositiveFloat,getRandomArrayElement,createArrayFeatures,getAvatarNumber};
+export {getRandomPositiveInteger,getRandomPositiveFloat,getRandomArrayElement,createArrayFeatures};
