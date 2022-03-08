@@ -1,4 +1,4 @@
-import {getRandomPositiveInteger,getRandomPositiveFloat,getRandomArrayElement,createArrayFeatures,getAvatarNumber} from './util.js';
+import {getRandomPositiveInteger,getRandomPositiveFloat,getRandomArrayElement,createArrayFeatures} from './util.js';
 
 const SIMILAR_AD_COUNT = 10;
 
@@ -46,6 +46,11 @@ const PHOTOS = [
 
 const sourceItems = AVATAR_NUMBERS;
 
+const getAvatarNumber = () => {
+  const avatarNumber = sourceItems.splice(getRandomPositiveInteger(0,sourceItems.length-1),1);
+  return avatarNumber < 10 ? `0${ avatarNumber }` : `${ avatarNumber }`;
+};
+
 const createSimilarAd = () => {
   const locationLat = getRandomPositiveFloat(35.65,35.7,5);
   const locationLng = getRandomPositiveFloat(139.7,139.8,5);
@@ -82,5 +87,5 @@ const getArrayAds = (counter) => {
   return targetItems;
 };
 
-export {sourceItems,getArrayAds,SIMILAR_AD_COUNT};
+export {getArrayAds,SIMILAR_AD_COUNT};
 
