@@ -1,1 +1,1 @@
-import './geniration-ads.js';
+import './ads-rendering.js';
