@@ -9,15 +9,7 @@ const pristine = new Pristine(form, {
   errorTextClass: 'form__error'
 });
 
-function validateTitle (value) {
-  return value.length >= 30 && value.length <= 100;
-}
-
-pristine.addValidator(
-  form.querySelector('#title'),
-  validateTitle,
-  'обязательный диапазон от 30 до 100 символов'
-);
+const validateTitle = (value) => value.length >= 30 && value.length <= 100;
 
 const roomField = form.querySelector('[name="rooms"]');
 const capacityField = form.querySelector('[name="capacity"]');
@@ -29,39 +21,35 @@ const RoomOptions = {
   '100': ['0'],
 };
 
-function validateRoomOptions () {
-  return RoomOptions[roomField.value].includes(capacityField.value);
-}
+const validateRoomOptions = () => RoomOptions[roomField.value].includes(capacityField.value);
 
-function getRoomErrorMessage () {
+const getRoomErrorMessage = () => {
   if(capacityField.value==='0') {
     return 'данная опция только для 100 комнат';
   }
   return `данное количество комнат, не предназначено для ${capacityField.value} гостей`;
-}
+};
 
-pristine.addValidator(
-  roomField,
-  validateRoomOptions
-);
-
-pristine.addValidator(
-  capacityField,
-  validateRoomOptions,
-  getRoomErrorMessage
-);
-
-function validateRoomAndCapacity () {
+const onValidateFields = () => {
   pristine.validate(roomField);
   pristine.validate(capacityField);
-}
+};
 
-form.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', validateRoomAndCapacity));
-form.querySelectorAll('[name="capacity"]').forEach((item) => item.addEventListener('change', validateRoomAndCapacity));
+const validateForm = () => {
+  pristine.addValidator(form.querySelector('#title'),validateTitle,'обязательный диапазон от 30 до 100 символов');
 
-form.addEventListener('submit', (evt) => {
-  const isValid = pristine.validate();
-  if(!isValid) {
-    evt.preventDefault();
-  }
-});
+  pristine.addValidator(roomField,validateRoomOptions);
+
+  pristine.addValidator(capacityField,validateRoomOptions,getRoomErrorMessage);
+
+  form.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onValidateFields));
+  form.querySelectorAll('[name="capacity"]').forEach((item) => item.addEventListener('change', onValidateFields));
+
+  form.addEventListener('submit', (evt) => {
+    if(!pristine.validate()) {
+      evt.preventDefault();
+    }
+  });
+};
+
+export {validateForm};
