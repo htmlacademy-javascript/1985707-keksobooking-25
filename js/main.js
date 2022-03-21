@@ -1,2 +1,5 @@
 import './ads-rendering.js';
-import './ad-form.js';
+import { validateForm } from './ad-form.js';
+
+validateForm();
+
