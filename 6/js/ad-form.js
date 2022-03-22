@@ -1,3 +1,10 @@
+const RoomOptions = {
+  '1': ['1'],
+  '2': ['1', '2'],
+  '3': ['1', '2', '3'],
+  '100': ['0'],
+};
+
 const form = document.querySelector('.ad-form');
 
 const pristine = new Pristine(form, {
@@ -14,13 +21,6 @@ const validateTitle = (value) => value.length >= 30 && value.length <= 100;
 const roomField = form.querySelector('[name="rooms"]');
 const capacityField = form.querySelector('[name="capacity"]');
 
-const RoomOptions = {
-  '1': ['1'],
-  '2': ['1', '2'],
-  '3': ['1', '2', '3'],
-  '100': ['0'],
-};
-
 const validateRoomOptions = () => RoomOptions[roomField.value].includes(capacityField.value);
 
 const getRoomErrorMessage = () => {
@@ -35,7 +35,7 @@ const onValidateFields = () => {
   pristine.validate(capacityField);
 };
 
-const validateForm = () => {
+const setFormValidation = () => {
   pristine.addValidator(form.querySelector('#title'),validateTitle,'обязательный диапазон от 30 до 100 символов');
 
   pristine.addValidator(roomField,validateRoomOptions);
@@ -52,4 +52,4 @@ const validateForm = () => {
   });
 };
 
-export {validateForm};
+export {setFormValidation};
