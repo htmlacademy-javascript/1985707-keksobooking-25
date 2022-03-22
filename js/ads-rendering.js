@@ -1,13 +1,3 @@
-import { getArrayAds } from './data.js';
-
-const similarAdListElement = document.querySelector('#map-canvas');
-
-const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const similarAds = getArrayAds(1);
-
-const similarAdFragment = document.createDocumentFragment();
-
 const OfferTypes = {
   flat: 'Квартира',
   bungalow: 'Бунгало',
@@ -16,6 +6,11 @@ const OfferTypes = {
   hotel: 'Отель',
 };
 
+const similarAdListElement = document.querySelector('#map-canvas');
+
+const similarAdTemplate = document.querySelector('#card').content.querySelector('.popup');
+
+const similarAdFragment = document.createDocumentFragment();
 
 const renderFeaturesList = (array, template) => {
   const container = template.querySelector('.popup__features');
@@ -52,7 +47,7 @@ const renderPhotoList = (array, template) => {
   });
 };
 
-similarAds.forEach((ad) => {
+const renderOffer = (ad) => {
   const adElement = similarAdTemplate.cloneNode(true);
   adElement.querySelector('.popup__title').textContent = ad.offer.title;
   adElement.querySelector('.popup__text--address').textContent = ad.offer.address;
@@ -69,6 +64,13 @@ similarAds.forEach((ad) => {
   renderPhotoList(ad.offer.photos,adElement);
   adElement.querySelector('.popup__avatar').src = ad.author.avatar;
   similarAdFragment.appendChild(adElement);
-});
+  similarAdListElement.appendChild(similarAdFragment);
+};
 
-similarAdListElement.appendChild(similarAdFragment);
+const insertOffer = (array) => {
+  array.forEach((ad) => {
+    renderOffer(ad);
+  });
+};
+
+export {insertOffer};
