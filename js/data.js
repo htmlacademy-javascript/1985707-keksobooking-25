@@ -1,6 +1,6 @@
 import {getRandomPositiveInteger,getRandomPositiveFloat,getRandomArrayElement,createArrayFeatures} from './util.js';
 
-const SIMILAR_AD_COUNT = 10;
+const SIMILAR_OFFER_COUNT = 10;
 
 const AVATAR_NUMBERS = [
   1,
@@ -51,7 +51,7 @@ const getAvatarNumber = () => {
   return avatarNumber < 10 ? `0${ avatarNumber }` : `${ avatarNumber }`;
 };
 
-const createSimilarAd = () => {
+const createSimilarOffer = () => {
   const locationLat = getRandomPositiveFloat(35.65,35.7,5);
   const locationLng = getRandomPositiveFloat(139.7,139.8,5);
   return {
@@ -78,14 +78,14 @@ const createSimilarAd = () => {
   };
 };
 
-const getArrayAds = (counter) => {
+const getArrayOffers = (counter) => {
   const targetItems = [];
   for (let i=0; i<counter; i++) {
-    const Ad = createSimilarAd();
-    targetItems.push(Ad);
+    const offer = createSimilarOffer();
+    targetItems.push(offer);
   }
   return targetItems;
 };
 
-export {getArrayAds,SIMILAR_AD_COUNT};
+export {getArrayOffers,SIMILAR_OFFER_COUNT};
 

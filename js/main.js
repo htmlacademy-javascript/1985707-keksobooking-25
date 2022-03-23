@@ -1,7 +1,7 @@
-import { getArrayAds } from './data.js';
-import { insertOffer } from './ads-rendering.js';
+import { getArrayOffers } from './data.js';
+import { insertOffers } from './ads-rendering.js';
 import { setFormValidation } from './ad-form.js';
 
-insertOffer(getArrayAds(1));
+insertOffers(getArrayOffers(1));
 setFormValidation();
 
