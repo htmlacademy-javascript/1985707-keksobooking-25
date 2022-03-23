@@ -55,10 +55,10 @@ const getPriceErrorMessage = () => {
   return `от ${MinPrice[offerType.value]} до 100000`;
 };
 
-const onValidateOfferType = () => {
+function onChangePlaceholder () {
   priceField.placeholder = MinPrice[this.value];
   pristine.validate(priceField);
-};
+}
 
 const timeInField = form.querySelector('#timein');
 const timeOutField = form.querySelector('#timeout');
@@ -83,7 +83,7 @@ const setFormValidation = () => {
   form.querySelectorAll('[name="capacity"]').forEach((item) => item.addEventListener('change', onValidateFields));
   form.querySelectorAll('#timein').forEach((item) => item.addEventListener('change', onValidateCheckinCheckout));
   form.querySelectorAll('#timeout').forEach((item) => item.addEventListener('change', onValidateCheckinCheckout));
-  form.querySelectorAll('#type').forEach((item) => item.addEventListener('change', onValidateOfferType));
+  form.querySelectorAll('#type').forEach((item) => item.addEventListener('change', onChangePlaceholder));
 
   form.addEventListener('submit', (evt) => {
     if(!pristine.validate()) {
