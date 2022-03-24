@@ -5,7 +5,7 @@ const RoomOptions = {
   '100': ['0'],
 };
 
-const MinPrice = {
+const MinPrices = {
   'bungalow': 0,
   'flat': 1000,
   'hotel': 3000,
@@ -47,16 +47,16 @@ const priceField = form.querySelector('#price');
 
 const validatePrice = (value) => {
   const offerType = form.querySelector('#type');
-  return MinPrice[offerType.value] <= (value.length && parseInt(value, 10)) && (value.length && parseInt(value, 10)) <= 100000;
+  return MinPrices[offerType.value] <= (value.length && parseInt(value, 10)) && (value.length && parseInt(value, 10)) <= 100000;
 };
 
 const getPriceErrorMessage = () => {
   const offerType = form.querySelector('#type');
-  return `от ${MinPrice[offerType.value]} до 100000`;
+  return `от ${MinPrices[offerType.value]} до 100000`;
 };
 
 function onChangePlaceholder () {
-  priceField.placeholder = MinPrice[this.value];
+  priceField.placeholder = MinPrices[this.value];
   pristine.validate(priceField);
 }
 
