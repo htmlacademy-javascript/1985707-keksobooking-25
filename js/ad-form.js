@@ -63,11 +63,12 @@ function onChangeOfferType () {
 const timeInField = form.querySelector('#timein');
 const timeOutField = form.querySelector('#timeout');
 
-const compareCheckinCheckout = () => timeInField.value === timeOutField.value;
+const onChangeCheckin = () => {
+  timeOutField.value = timeInField.value;
+};
 
-const onValidateCheckinCheckout = () => {
-  pristine.validate(timeInField);
-  pristine.validate(timeOutField);
+const onChangeCheckout = () => {
+  timeInField.value = timeOutField.value;
 };
 
 const setFormValidation = () => {
@@ -75,14 +76,12 @@ const setFormValidation = () => {
 
   pristine.addValidator(roomField,validateRoomOptions);
   pristine.addValidator(capacityField,validateRoomOptions,getRoomErrorMessage);
-  pristine.addValidator(timeInField, compareCheckinCheckout);
-  pristine.addValidator(timeOutField, compareCheckinCheckout, 'время заезда и выезда должно совпадать');
   pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
   form.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onValidateFields));
   form.querySelectorAll('[name="capacity"]').forEach((item) => item.addEventListener('change', onValidateFields));
-  form.querySelectorAll('#timein').forEach((item) => item.addEventListener('change', onValidateCheckinCheckout));
-  form.querySelectorAll('#timeout').forEach((item) => item.addEventListener('change', onValidateCheckinCheckout));
+  form.querySelectorAll('#timein').forEach((item) => item.addEventListener('change', onChangeCheckin));
+  form.querySelectorAll('#timeout').forEach((item) => item.addEventListener('change', onChangeCheckout));
   form.querySelectorAll('#type').forEach((item) => item.addEventListener('change', onChangeOfferType));
 
   form.addEventListener('submit', (evt) => {
