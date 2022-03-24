@@ -92,7 +92,7 @@
         </fieldset>
         <fieldset class="ad-form__element ad-form__element--wide">
           <label class="ad-form__label" for="address">Адрес (координаты)</label>
-          <input id="address" name="address" type="text" value="35.4200, 139.2530" readonly required>
+          <input id="address" name="address" type="text" value="35.4200, 139.2530" required>
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="type">Тип жилья</label>
@@ -106,10 +106,8 @@
         </fieldset>
         <fieldset class="ad-form__element">
           <label class="ad-form__label" for="price">Цена за ночь, руб.</label>
-          <input id="price" name="price" type="number" placeholder="5000" required min="0" max="100000"
+          <input id="price" name="price" type="number" placeholder="1000" required
           data-pristine-required-message="обязательное поле"
-          data-pristine-min-message="минимальное значение 0"
-          data-pristine-max-message="максимальное значение 100000"
           >
           <div class="ad-form__slider"></div>
         </fieldset>

@@ -5,6 +5,14 @@ const RoomOptions = {
   '100': ['0'],
 };
 
+const MinPrices = {
+  'bungalow': 0,
+  'flat': 1000,
+  'hotel': 3000,
+  'house': 5000,
+  'palace': 10000,
+};
+
 const form = document.querySelector('.ad-form');
 
 const pristine = new Pristine(form, {
@@ -35,15 +43,47 @@ const onValidateFields = () => {
   pristine.validate(capacityField);
 };
 
+const priceField = form.querySelector('#price');
+
+const validatePrice = (value) => {
+  const offerType = form.querySelector('#type');
+  return MinPrices[offerType.value] <= (value.length && parseInt(value, 10)) && (value.length && parseInt(value, 10)) <= 100000;
+};
+
+const getPriceErrorMessage = () => {
+  const offerType = form.querySelector('#type');
+  return `от ${MinPrices[offerType.value]} до 100000`;
+};
+
+function onChangePlaceholder () {
+  priceField.placeholder = MinPrices[this.value];
+  pristine.validate(priceField);
+}
+
+const timeInField = form.querySelector('#timein');
+const timeOutField = form.querySelector('#timeout');
+
+const compareCheckinCheckout = () => timeInField.value === timeOutField.value;
+
+const onValidateCheckinCheckout = () => {
+  pristine.validate(timeInField);
+  pristine.validate(timeOutField);
+};
+
 const setFormValidation = () => {
   pristine.addValidator(form.querySelector('#title'),validateTitle,'обязательный диапазон от 30 до 100 символов');
 
   pristine.addValidator(roomField,validateRoomOptions);
-
   pristine.addValidator(capacityField,validateRoomOptions,getRoomErrorMessage);
+  pristine.addValidator(timeInField, compareCheckinCheckout);
+  pristine.addValidator(timeOutField, compareCheckinCheckout, 'время заезда и выезда должно совпадать');
+  pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
   form.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onValidateFields));
   form.querySelectorAll('[name="capacity"]').forEach((item) => item.addEventListener('change', onValidateFields));
+  form.querySelectorAll('#timein').forEach((item) => item.addEventListener('change', onValidateCheckinCheckout));
+  form.querySelectorAll('#timeout').forEach((item) => item.addEventListener('change', onValidateCheckinCheckout));
+  form.querySelectorAll('#type').forEach((item) => item.addEventListener('change', onChangePlaceholder));
 
   form.addEventListener('submit', (evt) => {
     if(!pristine.validate()) {
@@ -53,3 +93,4 @@ const setFormValidation = () => {
 };
 
 export {setFormValidation};
+
