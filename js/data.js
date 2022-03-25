@@ -81,8 +81,8 @@ const createSimilarOffer = () => {
 const getArrayOffers = (counter) => {
   const targetItems = [];
   for (let i=0; i<counter; i++) {
-    const Ad = createSimilarOffer();
-    targetItems.push(Ad);
+    const offer = createSimilarOffer();
+    targetItems.push(offer);
   }
   return targetItems;
 };
