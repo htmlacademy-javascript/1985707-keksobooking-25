@@ -45,7 +45,6 @@ const createNoUiSlider = () => {
       start: MinPrices[this.value],
       step: 100,
     });
-    priceField.value = sliderElement.noUiSlider.get();
   }
 
   document.querySelector('.ad-form').querySelector('#type').addEventListener('change', onChangeSliderRange);
