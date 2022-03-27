@@ -1,14 +1,16 @@
 const resetButton = document.querySelector('.ad-form__reset');
+const latTokio = 35.68950;
+const lngTokio = 139.69200;
 
 const initializationMap = (unlock, array, renderOffer) => {
   const map = L.map('map-canvas')
     .on('load', () => {
       unlock();
-      document.querySelector('#address').value = '35.68950, 139.69200';
+      document.querySelector('#address').value = `${latTokio.toFixed(5)}, ${lngTokio.toFixed(5)}`;
     })
     .setView({
-      lat: 35.68950,
-      lng: 139.69200,
+      lat: latTokio,
+      lng: lngTokio,
     }, 12);
 
   L.tileLayer(
@@ -32,8 +34,8 @@ const initializationMap = (unlock, array, renderOffer) => {
 
   const mainPinMarker = L.marker(
     {
-      lat: 35.68950,
-      lng: 139.69200,
+      lat: latTokio,
+      lng: lngTokio,
     },
     {
       draggable: true,
@@ -52,16 +54,16 @@ const initializationMap = (unlock, array, renderOffer) => {
     evt.preventDefault();
     document.querySelector('.ad-form').reset();
     mainPinMarker.setLatLng({
-      lat: 35.68950,
-      lng: 139.69200,
+      lat: latTokio,
+      lng: lngTokio,
     });
 
     map.setView({
-      lat: 35.68950,
-      lng: 139.69200,
+      lat: latTokio,
+      lng: lngTokio,
     }, 12);
 
-    document.querySelector('#address').value = '35.68950, 139.69200';
+    document.querySelector('#address').value = `${latTokio.toFixed(5)}, ${lngTokio.toFixed(5)}`;
   });
 
   array.forEach((element) => {
