@@ -28,6 +28,8 @@ const unlockForm = () => {
   form.querySelector('#room_number').removeAttribute('disabled');
   form.querySelector('#capacity').removeAttribute('disabled');
   form.querySelector('#description').removeAttribute('disabled');
+  form.querySelector('#address').removeAttribute('disabled', 'disabled');
+  form.querySelector('#address').setAttribute('readonly', 'readonly');
   form.querySelector('#timein').removeAttribute('disabled');
   form.querySelector('#timeout').removeAttribute('disabled');
   form.querySelector('#images').removeAttribute('disabled');

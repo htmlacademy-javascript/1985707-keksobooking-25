@@ -6,11 +6,7 @@ const OfferTypes = {
   hotel: 'Отель',
 };
 
-const similarOfferListElement = document.querySelector('#map-canvas');
-
 const similarOfferTemplate = document.querySelector('#card').content.querySelector('.popup');
-
-const similarOfferFragment = document.createDocumentFragment();
 
 const renderFeaturesList = (array, template) => {
   const container = template.querySelector('.popup__features');
@@ -63,8 +59,8 @@ const renderOffer = (offer) => {
   }
   renderPhotoList(offer.offer.photos,offerElement);
   offerElement.querySelector('.popup__avatar').src = offer.author.avatar;
-  similarOfferFragment.appendChild(offerElement);
-  similarOfferListElement.appendChild(similarOfferFragment);
+
+  return offerElement;
 };
 
 const insertOffers = (array) => {
@@ -73,4 +69,4 @@ const insertOffers = (array) => {
   });
 };
 
-export {insertOffers};
+export {insertOffers, renderOffer};

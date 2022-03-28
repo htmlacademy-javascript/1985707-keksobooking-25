@@ -78,11 +78,11 @@ const setFormValidation = () => {
   pristine.addValidator(capacityField,validateRoomOptions,getRoomErrorMessage);
   pristine.addValidator(priceField, validatePrice, getPriceErrorMessage);
 
-  form.querySelectorAll('[name="rooms"]').forEach((item) => item.addEventListener('change', onValidateFields));
-  form.querySelectorAll('[name="capacity"]').forEach((item) => item.addEventListener('change', onValidateFields));
-  form.querySelectorAll('#timein').forEach((item) => item.addEventListener('change', onChangeCheckin));
-  form.querySelectorAll('#timeout').forEach((item) => item.addEventListener('change', onChangeCheckout));
-  form.querySelectorAll('#type').forEach((item) => item.addEventListener('change', onChangeOfferType));
+  form.querySelector('#room_number').addEventListener('change', onValidateFields);
+  form.querySelector('#capacity').addEventListener('change', onValidateFields);
+  form.querySelector('#timein').addEventListener('change', onChangeCheckin);
+  form.querySelector('#timeout').addEventListener('change', onChangeCheckout);
+  form.querySelector('#type').addEventListener('change', onChangeOfferType);
 
   form.addEventListener('submit', (evt) => {
     if(!pristine.validate()) {
