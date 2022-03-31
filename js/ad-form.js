@@ -1,3 +1,5 @@
+import { sendData } from './data-processing.js';
+
 const RoomOptions = {
   '1': ['1'],
   '2': ['1', '2'],
@@ -14,6 +16,7 @@ const MinPrices = {
 };
 
 const form = document.querySelector('.ad-form');
+const submitButton = document.querySelector('.ad-form__submit');
 
 const pristine = new Pristine(form, {
   classTo: 'ad-form__element',
@@ -71,7 +74,17 @@ const onChangeCheckout = () => {
   timeInField.value = timeOutField.value;
 };
 
-const setFormValidation = () => {
+const blockSubmitButton = () => {
+  submitButton.disabled = true;
+  submitButton.textContent = 'Публикую...';
+};
+
+const unblockSubmitButton = () => {
+  submitButton.disabled = false;
+  submitButton.textContent = 'Опубликовать';
+};
+
+const setFormValidation = (onSuccess, onError, resetMap) => {
   pristine.addValidator(form.querySelector('#title'),validateTitle,'обязательный диапазон от 30 до 100 символов');
 
   pristine.addValidator(roomField,validateRoomOptions);
@@ -85,8 +98,21 @@ const setFormValidation = () => {
   form.querySelector('#type').addEventListener('change', onChangeOfferType);
 
   form.addEventListener('submit', (evt) => {
-    if(!pristine.validate()) {
-      evt.preventDefault();
+    evt.preventDefault();
+    if(pristine.validate()) {
+      blockSubmitButton();
+      sendData(
+        () => {
+          resetMap();
+          onSuccess();
+          unblockSubmitButton();
+        },
+        () => {
+          onError();
+          unblockSubmitButton();
+        },
+        new FormData(evt.target),
+      );
     }
   });
 };

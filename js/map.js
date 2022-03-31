@@ -1,18 +1,54 @@
+import {unlockForm} from './form-initialization.js';
+
 const resetButton = document.querySelector('.ad-form__reset');
-const latTokio = 35.68950;
-const lngTokio = 139.69200;
+const LAT_TOKIO = 35.68950;
+const LNG_TOKIO = 139.69200;
 
-const initializationMap = (unlock, array, renderOffer) => {
-  const map = L.map('map-canvas')
-    .on('load', () => {
-      unlock();
-      document.querySelector('#address').value = `${latTokio.toFixed(5)}, ${lngTokio.toFixed(5)}`;
-    })
-    .setView({
-      lat: latTokio,
-      lng: lngTokio,
-    }, 12);
+const mainPinIcon = L.icon({
+  iconUrl: './img/main-pin.svg',
+  iconSize: [52, 52],
+  iconAnchor: [26, 52],
+});
 
+const mainPinMarker = L.marker(
+  {
+    lat: LAT_TOKIO,
+    lng: LNG_TOKIO,
+  },
+  {
+    draggable: true,
+    icon: mainPinIcon,
+  },
+);
+
+const map = L.map('map-canvas')
+  .on('load', () => {
+    document.querySelector('#address').value = `${LAT_TOKIO.toFixed(5)}, ${LNG_TOKIO.toFixed(5)}`;
+  })
+  .setView({
+    lat: LAT_TOKIO,
+    lng: LNG_TOKIO,
+  }, 12);
+
+const resetMap = () => {
+  document.querySelector('.ad-form').reset();
+  mainPinMarker.setLatLng({
+    lat: LAT_TOKIO,
+    lng: LNG_TOKIO,
+  });
+  map.setView({
+    lat: LAT_TOKIO,
+    lng: LNG_TOKIO,
+  }, 12)
+    .closePopup();
+  document.querySelector('#address').value = `${LAT_TOKIO.toFixed(5)}, ${LNG_TOKIO.toFixed(5)}`;
+  resetButton.addEventListener('click', (evt) => {
+    evt.preventDefault();
+    resetMap();
+  });
+};
+
+const initMap = () => {
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
@@ -20,50 +56,22 @@ const initializationMap = (unlock, array, renderOffer) => {
     },
   ).addTo(map);
 
-  const mainPinIcon = L.icon({
-    iconUrl: './img/main-pin.svg',
-    iconSize: [52, 52],
-    iconAnchor: [26, 52],
-  });
-
-  const regularPinIcon = L.icon({
-    iconUrl: './img/pin.svg',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-  });
-
-  const mainPinMarker = L.marker(
-    {
-      lat: latTokio,
-      lng: lngTokio,
-    },
-    {
-      draggable: true,
-      icon: mainPinIcon,
-    },
-  );
-
+  unlockForm();
   mainPinMarker.addTo(map);
 
   mainPinMarker.on('moveend', (evt) => {
     const LatLng = evt.target.getLatLng();
     document.querySelector('#address').value = `${LatLng.lat.toFixed(5)}, ${LatLng.lng.toFixed(5)}`;
   });
+  resetMap();
+};
 
-  resetButton.addEventListener('click', (evt) => {
-    evt.preventDefault();
-    document.querySelector('.ad-form').reset();
-    mainPinMarker.setLatLng({
-      lat: latTokio,
-      lng: lngTokio,
-    });
+const insertOffers = (array, renderOffer) => {
 
-    map.setView({
-      lat: latTokio,
-      lng: lngTokio,
-    }, 12);
-
-    document.querySelector('#address').value = `${latTokio.toFixed(5)}, ${lngTokio.toFixed(5)}`;
+  const regularPinIcon = L.icon({
+    iconUrl: './img/pin.svg',
+    iconSize: [40, 40],
+    iconAnchor: [20, 40],
   });
 
   array.forEach((element) => {
@@ -76,13 +84,10 @@ const initializationMap = (unlock, array, renderOffer) => {
         icon: regularPinIcon,
       }
     );
-
     regularPinMarker
       .addTo(map)
       .bindPopup(renderOffer(element));
   });
-
-
 };
 
-export {initializationMap};
+export {initMap, insertOffers, resetMap, map, mainPinMarker};
