@@ -120,7 +120,6 @@ const getOfferRank = (offer) => {
       rank +=1;
     }
   }
-  console.log(rank);
   return rank;
 };
 
