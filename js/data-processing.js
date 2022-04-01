@@ -1,6 +1,25 @@
-const getData = (insertOffers,renderOffer,counter,err) => fetch('https://25.javascript.pages.academy/keksobooking/data')
+const RERENDER_DELAY = 500;
+
+const getData = (insertOffers,renderOffer,err, onChangeType, onChangePrice, onChangeRoom, onChangeGuests, onChangeFeature, debounce) => fetch('https://25.javascript.pages.academy/keksobooking/data')
   .then((response) => response.json())
-  .then((offers) => insertOffers(offers.slice(0,counter),renderOffer))
+  .then((offers) => {
+    insertOffers(offers,renderOffer);
+    onChangeType(debounce(
+      () => insertOffers(offers, renderOffer),
+      RERENDER_DELAY));
+    onChangePrice(debounce(
+      () => insertOffers(offers, renderOffer),
+      RERENDER_DELAY));
+    onChangeRoom(debounce(
+      () => insertOffers(offers, renderOffer),
+      RERENDER_DELAY));
+    onChangeGuests(debounce(
+      () => insertOffers(offers, renderOffer),
+      RERENDER_DELAY));
+    onChangeFeature(debounce(
+      () => insertOffers(offers, renderOffer),
+      RERENDER_DELAY));
+  })
   .catch(() => {
     document.querySelector('.map__filters').classList.add('map__filters--disabled');
     err('Не удалось загрузить данные!');
