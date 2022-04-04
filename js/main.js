@@ -1,6 +1,7 @@
 import { setFormValidation } from './ad-form.js';
 import {lockForm} from './form-initialization.js';
-import {initMap, insertOffers, resetMap, onChangeType, onChangeRoom, onChangePrice, onChangeGuests, onChangeFeature} from './map.js';
+import {initMap, insertOffers, resetMap} from './map.js';
+import { onChangeType, onChangeRoom, onChangePrice, onChangeGuests, onChangeFeature} from './map-filter.js';
 import {renderOffer} from './ads-rendering.js';
 import {createNoUiSlider} from './no-ui-slider.js';
 import {getData} from './data-processing.js';
