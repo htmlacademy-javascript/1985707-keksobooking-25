@@ -1,6 +1,9 @@
 import {unlockForm} from './form-initialization.js';
 import { initFilters} from './map-filter.js';
+import { debounce } from './util.js';
+import { setTypeFilter, setPriceFilter, setRoomFilter, setGuestsFilter, setFeatureFilter} from './map-filter.js';
 
+const RERENDER_DELAY = 500;
 const SIMILAR_OFFER_COUNT = 10;
 const LAT_TOKIO = 35.68950;
 const LNG_TOKIO = 139.69200;
@@ -102,8 +105,18 @@ const insertOffers = (array, renderOffer) => {
 
 };
 
+const setFilter = (offers, renderOffer) => {
+  const setDebounce = () => (debounce(() => insertOffers(offers, renderOffer), RERENDER_DELAY));
+
+  setTypeFilter(setDebounce());
+  setPriceFilter(setDebounce());
+  setRoomFilter(setDebounce());
+  setGuestsFilter(setDebounce());
+  setFeatureFilter(setDebounce());
+};
+
 const clearLayers = () => {
   markerGroup.clearLayers();
 };
 
-export {initMap, insertOffers, resetMap, clearLayers};
+export {initMap, insertOffers, resetMap, clearLayers, setFilter};

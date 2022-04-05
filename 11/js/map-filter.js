@@ -1,34 +1,39 @@
 import { clearLayers } from './map.js';
 
-const onChangeType = (cb) => {
+const Prices = {
+  MIN : 10000,
+  MAX : 50000
+};
+
+const setTypeFilter = (cb) => {
   document.querySelector('#housing-type').addEventListener('change', () => {
     clearLayers();
     cb();
   });
 };
 
-const onChangePrice = (cb) => {
+const setPriceFilter = (cb) => {
   document.querySelector('#housing-price').addEventListener('change', () => {
     clearLayers();
     cb();
   });
 };
 
-const onChangeRoom = (cb) => {
+const setRoomFilter = (cb) => {
   document.querySelector('#housing-rooms').addEventListener('change', () => {
     clearLayers();
     cb();
   });
 };
 
-const onChangeGuests = (cb) => {
+const setGuestsFilter = (cb) => {
   document.querySelector('#housing-guests').addEventListener('change', () => {
     clearLayers();
     cb();
   });
 };
 
-const onChangeFeature = (cb) => {
+const setFeatureFilter = (cb) => {
   document.querySelector('#filter-wifi').addEventListener('change', () => {
     clearLayers();
     cb();
@@ -68,9 +73,9 @@ const initFilters = (element) => {
 
   const isPriceCompared = () => {
     const value = document.querySelector('#housing-price').value;
-    return value ==='any' || (value === 'low' && element.offer.price<10000) ||
-    (value === 'middle' && element.offer.price>=10000 && element.offer.price <= 50000) ||
-    (value === 'high' && element.offer.price>50000);
+    return value ==='any' || (value === 'low' && element.offer.price<Prices.MIN) ||
+    (value === 'middle' && element.offer.price>=Prices.MIN && element.offer.price <= Prices.MAX) ||
+    (value === 'high' && element.offer.price>Prices.MAX);
   };
 
   const isGuestsCompared = () => {
@@ -118,4 +123,4 @@ const initFilters = (element) => {
   isDishwasherCompared() && isParkingCompared() && isWasherCompared() && isElevatorCompared() && isConditionerCompared();
 };
 
-export {onChangeType, onChangeRoom, onChangePrice, onChangeGuests, onChangeFeature, initFilters};
+export {setTypeFilter, setPriceFilter, setRoomFilter, setGuestsFilter, setFeatureFilter, initFilters};

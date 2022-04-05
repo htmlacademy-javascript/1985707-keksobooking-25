@@ -3,7 +3,7 @@ const showErrMessage = (message) => {
   alertContainer.style.zIndex = 9999;
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = '300px';
-  alertContainer.style.top = '50%';
+  alertContainer.style.top = '300px';
   alertContainer.style.right = '300px';
   alertContainer.style.padding = '10px 3px';
   alertContainer.style.fontSize = '30px';
