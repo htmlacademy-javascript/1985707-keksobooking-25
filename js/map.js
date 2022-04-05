@@ -1,5 +1,5 @@
 import {unlockForm} from './form-initialization.js';
-// import { compareOffers, getOfferRank } from './map-filter.js';
+import { initFilters} from './map-filter.js';
 
 const SIMILAR_OFFER_COUNT = 10;
 const LAT_TOKIO = 35.68950;
@@ -69,18 +69,6 @@ const initMap = () => {
   resetMap();
 };
 
-// const typeFilter = (offer) => {
-//   if (offer.offer.type === document.querySelector('#housing-type').value) {
-//     return true;
-//   }
-// };
-
-// const typeRoomsFilter = (offer) => {
-//   if((offer.offer.type === document.querySelector('#housing-type').value) && (offer.offer.rooms === +document.querySelector('#housing-rooms').value)) {
-//     return true;
-//   }
-// };
-
 const insertOffers = (array, renderOffer) => {
 
   const regularPinIcon = L.icon({
@@ -90,47 +78,7 @@ const insertOffers = (array, renderOffer) => {
   });
 
   let targetArray = array
-    .filter((element) =>{
-      if (element.offer.type === document.querySelector('#housing-type').value) {
-        return true;
-      } else
-      if(element.offer.rooms === +document.querySelector('#housing-rooms').value) {
-        return true;
-      }
-      if (document.querySelector('#housing-price').value === 'low' && element.offer.price<10000) {
-        return true;
-      } else
-      if (document.querySelector('#housing-price').value === 'middle' && element.offer.price>=10000 && element.offer.price <= 50000) {
-        return true;
-      } else
-      if (document.querySelector('#housing-price').value === 'high' && element.offer.price>50000) {
-        return true;
-      } else
-      if (element.offer.guests === +document.querySelector('#housing-guests').value) {
-        return true;
-      }
-      // if (typeof element.offer.features === 'object') {
-      //   if (document.querySelector('#filter-wifi').checked && element.offer.features.includes(document.querySelector('#filter-wifi').value)) {
-      //     return true;
-      //   }
-      // if (housingFeaturesDishwasher.checked && offer.offer.features.includes(housingFeaturesDishwasher.value)) {
-      //   rank +=1;
-      // }
-      // if (housingFeaturesParking.checked && offer.offer.features.includes(housingFeaturesParking.value)) {
-      //   rank +=1;
-      // }
-      // if (housingFeaturesWasher.checked && offer.offer.features.includes(housingFeaturesWasher.value)) {
-      //   rank +=1;
-      // }
-      // if (housingFeaturesElevator.checked && offer.offer.features.includes(housingFeaturesElevator.value)) {
-      //   rank +=1;
-      // }
-      // if (housingFeaturesConditioner.checked && offer.offer.features.includes(housingFeaturesConditioner.value)) {
-      //   rank +=1;
-      // }
-      // }
-    }
-    );
+    .filter((element) =>initFilters(element));
 
   if (targetArray.length > SIMILAR_OFFER_COUNT) {
     targetArray = targetArray.slice(0, SIMILAR_OFFER_COUNT);
@@ -153,6 +101,7 @@ const insertOffers = (array, renderOffer) => {
 
 
 };
+
 const clearLayers = () => {
   markerGroup.clearLayers();
 };
