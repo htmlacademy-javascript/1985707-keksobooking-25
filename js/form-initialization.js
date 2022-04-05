@@ -2,6 +2,7 @@ const form = document.querySelector('.ad-form');
 const mapFilter = document.querySelector('.map__filters');
 
 const lockForm = () => {
+  // document.querySelector('#map-canvas').className = 'off';
   form.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
   form.querySelector('#avatar').setAttribute('disabled', 'disabled');

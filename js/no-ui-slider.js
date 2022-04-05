@@ -9,6 +9,17 @@ const MinPrices = {
 const sliderElement = document.querySelector('.ad-form__slider');
 const priceField = document.querySelector('#price');
 
+function onChangeSliderRange () {
+  sliderElement.noUiSlider.updateOptions({
+    range: {
+      min: MinPrices[this.value],
+      max: 100000,
+    },
+    start: MinPrices[this.value],
+    step: 100,
+  });
+}
+
 const createNoUiSlider = () => {
   noUiSlider.create(sliderElement, {
     range: {
@@ -36,18 +47,7 @@ const createNoUiSlider = () => {
     sliderElement.noUiSlider.set(this.value);
   });
 
-  function onChangeSliderRange () {
-    sliderElement.noUiSlider.updateOptions({
-      range: {
-        min: MinPrices[this.value],
-        max: 100000,
-      },
-      start: MinPrices[this.value],
-      step: 100,
-    });
-  }
-
   document.querySelector('.ad-form').querySelector('#type').addEventListener('change', onChangeSliderRange);
 };
 
-export {createNoUiSlider};
+export {createNoUiSlider, onChangeSliderRange, MinPrices};
