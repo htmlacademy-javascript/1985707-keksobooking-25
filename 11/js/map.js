@@ -1,7 +1,8 @@
 import {unlockForm} from './form-initialization.js';
 import { initFilters} from './map-filter.js';
 import { debounce } from './util.js';
-import { setTypeFilter, setPriceFilter, setRoomFilter, setGuestsFilter, setFeatureFilter} from './map-filter.js';
+import { setOfferFilter, setFeatureFilter} from './map-filter.js';
+import { MinPrices } from './no-ui-slider.js';
 
 const RERENDER_DELAY = 500;
 const SIMILAR_OFFER_COUNT = 10;
@@ -25,19 +26,21 @@ const mainPinMarker = L.marker(
   },
 );
 
-const map = L.map('map-canvas')
-  .on('load', () => {
-    document.querySelector('#address').value = `${LAT_TOKIO.toFixed(5)}, ${LNG_TOKIO.toFixed(5)}`;
-  })
-  .setView({
-    lat: LAT_TOKIO,
-    lng: LNG_TOKIO,
-  }, 12);
+const map = L.map('map-canvas');
 
 const markerGroup = L.layerGroup().addTo(map);
 
 const resetMap = () => {
   document.querySelector('.ad-form').reset();
+  document.querySelector('.ad-form__slider').noUiSlider.updateOptions({
+    range: {
+      min: MinPrices.flat,
+      max: 100000,
+    },
+    start: MinPrices.flat,
+    step: 100,
+  });
+  document.querySelector('.ad-form').querySelector('#price').placeholder = MinPrices.flat;
   mainPinMarker.setLatLng({
     lat: LAT_TOKIO,
     lng: LNG_TOKIO,
@@ -55,6 +58,14 @@ const resetMap = () => {
 };
 
 const initMap = () => {
+  map.on('load', () => {
+    unlockForm();
+    document.querySelector('#address').value = `${LAT_TOKIO.toFixed(5)}, ${LNG_TOKIO.toFixed(5)}`;
+  })
+    .setView({
+      lat: LAT_TOKIO,
+      lng: LNG_TOKIO,
+    }, 12);
   L.tileLayer(
     'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     {
@@ -62,7 +73,6 @@ const initMap = () => {
     },
   ).addTo(map);
 
-  unlockForm();
   mainPinMarker.addTo(map);
 
   mainPinMarker.on('moveend', (evt) => {
@@ -108,10 +118,7 @@ const insertOffers = (array, renderOffer) => {
 const setFilter = (offers, renderOffer) => {
   const setDebounce = () => (debounce(() => insertOffers(offers, renderOffer), RERENDER_DELAY));
 
-  setTypeFilter(setDebounce());
-  setPriceFilter(setDebounce());
-  setRoomFilter(setDebounce());
-  setGuestsFilter(setDebounce());
+  setOfferFilter(setDebounce());
   setFeatureFilter(setDebounce());
 };
 
