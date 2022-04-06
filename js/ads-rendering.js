@@ -10,7 +10,7 @@ const similarOfferTemplate = document.querySelector('#card').content.querySelect
 
 const renderFeaturesList = (array, template) => {
   const container = template.querySelector('.popup__features');
-  if(!array) {
+  if(typeof array !== 'object') {
     return container.remove();
   }
   const listItems = container.querySelectorAll('.popup__feature');
@@ -27,7 +27,7 @@ const renderFeaturesList = (array, template) => {
 
 const renderPhotoList = (array, template) => {
   const container = template.querySelector('.popup__photos');
-  if(!array) {
+  if(typeof array !== 'object') {
     return container.remove();
   }
   container.innerHTML = '';
@@ -63,10 +63,10 @@ const renderOffer = (offer) => {
   return offerElement;
 };
 
-const insertOffers = (array) => {
-  array.forEach((offer) => {
-    renderOffer(offer);
-  });
-};
+// const insertOffers = (array) => {
+//   array.forEach((offer) => {
+//     renderOffer(offer);
+//   });
+// };
 
-export {insertOffers, renderOffer};
+export {renderOffer};

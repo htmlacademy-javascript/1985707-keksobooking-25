@@ -1,6 +1,8 @@
-const getData = (insertOffers,renderOffer,counter,err) => fetch('https://25.javascript.pages.academy/keksobooking/data')
+const getData = (insertOffers,err) => fetch('https://25.javascript.pages.academy/keksobooking/data')
   .then((response) => response.json())
-  .then((offers) => insertOffers(offers.slice(0,counter),renderOffer))
+  .then((offers) => {
+    insertOffers(offers);
+  })
   .catch(() => {
     document.querySelector('.map__filters').classList.add('map__filters--disabled');
     err('Не удалось загрузить данные!');
