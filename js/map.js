@@ -1,7 +1,7 @@
 import {unlockForm} from './form-initialization.js';
 import { initFilters} from './map-filter.js';
 import { debounce } from './util.js';
-import { setTypeFilter, setPriceFilter, setRoomFilter, setGuestsFilter, setFeatureFilter} from './map-filter.js';
+import { setOfferFilter, setFeatureFilter} from './map-filter.js';
 import { MinPrices } from './no-ui-slider.js';
 
 const RERENDER_DELAY = 500;
@@ -118,10 +118,7 @@ const insertOffers = (array, renderOffer) => {
 const setFilter = (offers, renderOffer) => {
   const setDebounce = () => (debounce(() => insertOffers(offers, renderOffer), RERENDER_DELAY));
 
-  setTypeFilter(setDebounce());
-  setPriceFilter(setDebounce());
-  setRoomFilter(setDebounce());
-  setGuestsFilter(setDebounce());
+  setOfferFilter(setDebounce());
   setFeatureFilter(setDebounce());
 };
 

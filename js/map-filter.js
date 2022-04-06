@@ -5,58 +5,23 @@ const Prices = {
   MAX : 50000
 };
 
-const setTypeFilter = (cb) => {
-  document.querySelector('#housing-type').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-};
-
-const setPriceFilter = (cb) => {
-  document.querySelector('#housing-price').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-};
-
-const setRoomFilter = (cb) => {
-  document.querySelector('#housing-rooms').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-};
-
-const setGuestsFilter = (cb) => {
-  document.querySelector('#housing-guests').addEventListener('change', () => {
-    clearLayers();
-    cb();
+const setOfferFilter = (cb) => {
+  const filterType = document.querySelectorAll('.map__filter');
+  filterType.forEach((item) => {
+    item.addEventListener('change', () => {
+      clearLayers();
+      cb();
+    });
   });
 };
 
 const setFeatureFilter = (cb) => {
-  document.querySelector('#filter-wifi').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-  document.querySelector('#filter-dishwasher').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-  document.querySelector('#filter-parking').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-  document.querySelector('#filter-washer').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-  document.querySelector('#filter-elevator').addEventListener('change', () => {
-    clearLayers();
-    cb();
-  });
-  document.querySelector('#filter-conditioner').addEventListener('change', () => {
-    clearLayers();
-    cb();
+  const features = document.querySelectorAll('.map__features input[name=features]');
+  features.forEach((item) => {
+    item.addEventListener('change', () => {
+      clearLayers();
+      cb();
+    });
   });
 };
 
@@ -123,4 +88,4 @@ const initFilters = (element) => {
   isDishwasherCompared() && isParkingCompared() && isWasherCompared() && isElevatorCompared() && isConditionerCompared();
 };
 
-export {setTypeFilter, setPriceFilter, setRoomFilter, setGuestsFilter, setFeatureFilter, initFilters};
+export {setOfferFilter, setFeatureFilter, initFilters};
