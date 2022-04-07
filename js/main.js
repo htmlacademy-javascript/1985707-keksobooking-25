@@ -5,9 +5,10 @@ import {renderOffer} from './ads-rendering.js';
 import {createNoUiSlider} from './no-ui-slider.js';
 import {getData} from './data-processing.js';
 import {showErrMessage, getSuccessWindow, getErrorWindow} from './util.js';
-import './avatar.js';
+import {uploadImg} from './avatar.js';
 
 lockForm();
+uploadImg();
 createNoUiSlider();
 initMap();
 setFormValidation(
