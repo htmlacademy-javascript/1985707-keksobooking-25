@@ -12,7 +12,7 @@ const getMatchesFileTypes = (file) => {
   return FILE_TYPES.some((it) => fileName.endsWith(it));
 };
 
-const uploadImg = () => {
+const setImgUpload = () => {
   avatarFile.addEventListener('change', () => {
     if (getMatchesFileTypes(avatarFile)) {
       avatarPreview.src = URL.createObjectURL(avatarFile.files[0]);
@@ -31,4 +31,4 @@ const uploadImg = () => {
   });
 };
 
-export {uploadImg};
+export {setImgUpload};
