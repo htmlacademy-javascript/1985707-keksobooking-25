@@ -32,6 +32,8 @@ const markerGroup = L.layerGroup().addTo(map);
 
 const resetMap = () => {
   document.querySelector('.ad-form').reset();
+  document.querySelector('.ad-form__photo').innerHTML = '';
+  document.querySelector('.ad-form-header__preview img').src = 'img/muffin-grey.svg';
   document.querySelector('.ad-form__slider').noUiSlider.updateOptions({
     range: {
       min: MinPrices.flat,
