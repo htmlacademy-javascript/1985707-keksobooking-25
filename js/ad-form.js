@@ -1,5 +1,10 @@
 import { sendData } from './data-processing.js';
 
+const TitleLenthgs = {
+  MIN: 30,
+  MAX: 100
+};
+
 const RoomOptions = {
   '1': ['1'],
   '2': ['1', '2'],
@@ -27,7 +32,7 @@ const pristine = new Pristine(form, {
   errorTextClass: 'form__error'
 });
 
-const validateTitle = (value) => value.length >= 30 && value.length <= 100;
+const validateTitle = (value) => value.length >= TitleLenthgs.MIN && value.length <= TitleLenthgs.MAX;
 
 const roomField = form.querySelector('[name="rooms"]');
 const capacityField = form.querySelector('[name="capacity"]');
