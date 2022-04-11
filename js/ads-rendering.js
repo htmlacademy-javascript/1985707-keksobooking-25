@@ -36,8 +36,8 @@ const renderPhotoList = (array, template) => {
     const listItem = document.createElement('img');
     listItem.classList.add('popup__photo');
     listItem.src = src;
-    listItem.width = '45';
-    listItem.height = '40';
+    listItem.width = 45;
+    listItem.height = 40;
     listItem.alt = 'Фотография жилья';
     container.append(listItem);
   });
@@ -62,11 +62,5 @@ const renderOffer = (offer) => {
 
   return offerElement;
 };
-
-// const insertOffers = (array) => {
-//   array.forEach((offer) => {
-//     renderOffer(offer);
-//   });
-// };
 
 export {renderOffer};

@@ -2,7 +2,6 @@ const form = document.querySelector('.ad-form');
 const mapFilter = document.querySelector('.map__filters');
 
 const lockForm = () => {
-  // document.querySelector('#map-canvas').className = 'off';
   form.classList.add('ad-form--disabled');
   mapFilter.classList.add('map__filters--disabled');
   form.querySelector('#avatar').setAttribute('disabled', 'disabled');
@@ -29,7 +28,7 @@ const unlockForm = () => {
   form.querySelector('#room_number').removeAttribute('disabled');
   form.querySelector('#capacity').removeAttribute('disabled');
   form.querySelector('#description').removeAttribute('disabled');
-  form.querySelector('#address').removeAttribute('disabled', 'disabled');
+  form.querySelector('#address').removeAttribute('disabled');
   form.querySelector('#address').setAttribute('readonly', 'readonly');
   form.querySelector('#timein').removeAttribute('disabled');
   form.querySelector('#timeout').removeAttribute('disabled');

@@ -1,6 +1,8 @@
+const ERROR_MESSAGE_DELAY = 5000;
+
 const showErrMessage = (message) => {
   const alertContainer = document.createElement('div');
-  alertContainer.style.zIndex = 9999;
+  alertContainer.style.zIndex = '9999';
   alertContainer.style.position = 'absolute';
   alertContainer.style.left = '300px';
   alertContainer.style.top = '300px';
@@ -17,7 +19,7 @@ const showErrMessage = (message) => {
 
   setTimeout(() => {
     alertContainer.remove();
-  }, 5000);
+  }, ERROR_MESSAGE_DELAY);
 };
 
 const getSuccessWindow = () => {
@@ -30,16 +32,18 @@ const getSuccessWindow = () => {
       evt.preventDefault();
       successWindow.remove();
       document.removeEventListener('keydown', onEscapeKeydown);
+      document.removeEventListener('mousedown', onClickMouse);
     }
   };
 
-  const onClickMouse = (evt) => {
+  function onClickMouse (evt) {
     if(evt.which === 1) {
       evt.preventDefault();
       successWindow.remove();
       document.removeEventListener('mousedown', onClickMouse);
+      document.removeEventListener('keydown', onEscapeKeydown);
     }
-  };
+  }
   document.addEventListener('keydown', onEscapeKeydown);
   document.addEventListener('mousedown', onClickMouse);
 
@@ -56,22 +60,28 @@ const getErrorWindow = () => {
       evt.preventDefault();
       errorWindow.remove();
       document.removeEventListener('keydown', onEscapeKeydown);
+      document.removeEventListener('mousedown', onClickMouse);
+      document.removeEventListener('click', onClickButton);
     }
   };
 
-  const onClickMouse = (evt) => {
+  function onClickMouse (evt) {
     if(evt.which === 1) {
       evt.preventDefault();
       errorWindow.remove();
+      document.removeEventListener('keydown', onEscapeKeydown);
       document.removeEventListener('mousedown', onClickMouse);
+      document.removeEventListener('click', onClickButton);
     }
-  };
+  }
 
-  const onClickButton = (evt) => {
+  function onClickButton (evt) {
     evt.preventDefault();
     errorWindow.remove();
+    document.removeEventListener('keydown', onEscapeKeydown);
+    document.removeEventListener('mousedown', onClickMouse);
     document.removeEventListener('click', onClickButton);
-  };
+  }
 
   document.addEventListener('keydown', onEscapeKeydown);
   document.addEventListener('mousedown', onClickMouse);
