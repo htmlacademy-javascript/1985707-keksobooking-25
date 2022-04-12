@@ -25,67 +25,66 @@ const setFeatureFilter = (cb) => {
   });
 };
 
-const initFilters = (element) => {
-  const isTypeCompared = () => {
-    const value = document.querySelector('#housing-type').value;
-    return value ==='any' || (value === element.offer.type);
-  };
-
-  const isRoomsCompared = () => {
-    const value = document.querySelector('#housing-rooms').value;
-    return value === 'any' || (parseInt(value,10) === element.offer.rooms);
-  };
-
-  const isPriceCompared = () => {
-    const value = document.querySelector('#housing-price').value;
-    return value ==='any' || (value === 'low' && element.offer.price<Prices.MIN) ||
-    (value === 'middle' && element.offer.price>=Prices.MIN && element.offer.price <= Prices.MAX) ||
-    (value === 'high' && element.offer.price>Prices.MAX);
-  };
-
-  const isGuestsCompared = () => {
-    const value = document.querySelector('#housing-guests').value;
-    return value === 'any' || (parseInt(value,10) === element.offer.guests);
-  };
-
-  const isWifiCompared = () => {
-    const value = document.querySelector('#filter-wifi');
-    return !value.checked || (typeof element.offer.features === 'object') &&
-    (value.checked  && element.offer.features.includes(value.value));
-  };
-
-  const isDishwasherCompared = () => {
-    const value = document.querySelector('#filter-dishwasher');
-    return !value.checked || (typeof element.offer.features === 'object') &&
-    (value.checked  && element.offer.features.includes(value.value));
-  };
-
-  const isParkingCompared = () => {
-    const value = document.querySelector('#filter-parking');
-    return !value.checked || (typeof element.offer.features === 'object') &&
-    (value.checked  && element.offer.features.includes(value.value));
-  };
-
-  const isWasherCompared = () => {
-    const value = document.querySelector('#filter-washer');
-    return !value.checked || (typeof element.offer.features === 'object') &&
-    (value.checked  && element.offer.features.includes(value.value));
-  };
-
-  const isElevatorCompared = () => {
-    const value = document.querySelector('#filter-elevator');
-    return !value.checked || (typeof element.offer.features === 'object') &&
-    (value.checked  && element.offer.features.includes(value.value));
-  };
-
-  const isConditionerCompared = () => {
-    const value = document.querySelector('#filter-conditioner');
-    return !value.checked || (typeof element.offer.features === 'object') &&
-    (value.checked  && element.offer.features.includes(value.value));
-  };
-
-  return isTypeCompared() && isRoomsCompared() && isPriceCompared() && isGuestsCompared() && isWifiCompared() &&
-  isDishwasherCompared() && isParkingCompared() && isWasherCompared() && isElevatorCompared() && isConditionerCompared();
+const isTypeCompared = (element) => {
+  const value = document.querySelector('#housing-type').value;
+  return value ==='any' || (value === element.offer.type);
 };
 
-export {setOfferFilter, setFeatureFilter, initFilters};
+const isRoomsCompared = (element) => {
+  const value = document.querySelector('#housing-rooms').value;
+  return value === 'any' || (parseInt(value,10) === element.offer.rooms);
+};
+
+const isPriceCompared = (element) => {
+  const value = document.querySelector('#housing-price').value;
+  return value ==='any' || (value === 'low' && element.offer.price<Prices.MIN) ||
+  (value === 'middle' && element.offer.price>=Prices.MIN && element.offer.price <= Prices.MAX) ||
+  (value === 'high' && element.offer.price>Prices.MAX);
+};
+
+const isGuestsCompared = (element) => {
+  const value = document.querySelector('#housing-guests').value;
+  return value === 'any' || (parseInt(value,10) === element.offer.guests);
+};
+
+const isWifiCompared = (element) => {
+  const value = document.querySelector('#filter-wifi');
+  return !value.checked || (typeof element.offer.features === 'object') &&
+  (value.checked  && element.offer.features.includes(value.value));
+};
+
+const isDishwasherCompared = (element) => {
+  const value = document.querySelector('#filter-dishwasher');
+  return !value.checked || (typeof element.offer.features === 'object') &&
+  (value.checked  && element.offer.features.includes(value.value));
+};
+
+const isParkingCompared = (element) => {
+  const value = document.querySelector('#filter-parking');
+  return !value.checked || (typeof element.offer.features === 'object') &&
+  (value.checked  && element.offer.features.includes(value.value));
+};
+
+const isWasherCompared = (element) => {
+  const value = document.querySelector('#filter-washer');
+  return !value.checked || (typeof element.offer.features === 'object') &&
+  (value.checked  && element.offer.features.includes(value.value));
+};
+
+const isElevatorCompared = (element) => {
+  const value = document.querySelector('#filter-elevator');
+  return !value.checked || (typeof element.offer.features === 'object') &&
+  (value.checked  && element.offer.features.includes(value.value));
+};
+
+const isConditionerCompared = (element) => {
+  const value = document.querySelector('#filter-conditioner');
+  return !value.checked || (typeof element.offer.features === 'object') &&
+  (value.checked  && element.offer.features.includes(value.value));
+};
+
+const filterItems = (element) => isTypeCompared(element) && isRoomsCompared(element) && isPriceCompared(element)
+&& isGuestsCompared(element) && isWifiCompared(element) && isDishwasherCompared(element) && isParkingCompared(element)
+&& isWasherCompared(element) && isElevatorCompared(element) && isConditionerCompared(element);
+
+export {setOfferFilter, setFeatureFilter, filterItems};

@@ -1,5 +1,5 @@
 import {unlockForm} from './form-initialization.js';
-import { initFilters} from './map-filter.js';
+import { filterItems} from './map-filter.js';
 import { debounce } from './util.js';
 import { setOfferFilter, setFeatureFilter} from './map-filter.js';
 import { MinPrices } from './no-ui-slider.js';
@@ -92,11 +92,15 @@ const insertOffers = (array, renderOffer) => {
     iconAnchor: [20, 40],
   });
 
-  let targetArray = array
-    .filter((element) =>initFilters(element));
+  const targetArray = [];
 
-  if (targetArray.length > SIMILAR_OFFER_COUNT) {
-    targetArray = targetArray.slice(0, SIMILAR_OFFER_COUNT);
+  for(let i=0; i < array.length; i++) {
+    if (filterItems(array[i])) {
+      targetArray.push(array[i]);
+    }
+    if (targetArray.length>=SIMILAR_OFFER_COUNT) {
+      break;
+    }
   }
 
   targetArray.forEach((element) => {
